@@ -83,13 +83,33 @@ public class AddItemActivity extends AppCompatActivity {
                 return;
             }
 
-            Toast.makeText(
-                    AddItemActivity.this,
-                    "Pantry item saved successfully!",
-                    Toast.LENGTH_SHORT
-            ).show();
+            int quantityNumber = Integer.parseInt(quantity);
 
-            finish();
+            PantryDatabaseHelper databaseHelper =
+                    new PantryDatabaseHelper(AddItemActivity.this);
+
+            boolean isInserted = databaseHelper.addPantryItem(
+                    itemName,
+                    quantityNumber,
+                    category,
+                    expiryDate
+            );
+
+            if (isInserted) {
+                Toast.makeText(
+                        AddItemActivity.this,
+                        "Pantry item saved successfully!",
+                        Toast.LENGTH_SHORT
+                ).show();
+
+                finish();
+            } else {
+                Toast.makeText(
+                        AddItemActivity.this,
+                        "Failed to save pantry item.",
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
         });
 
         btnCancel.setOnClickListener(v -> {
