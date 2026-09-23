@@ -9,7 +9,7 @@ import android.database.Cursor;
 public class PantryDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "SmartPantry.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
 
     public static final String TABLE_PANTRY = "pantry_items";
 
@@ -18,6 +18,10 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_QUANTITY = "quantity";
     public static final String COLUMN_CATEGORY = "category";
     public static final String COLUMN_EXPIRY = "expiry_date";
+
+    public static final String TABLE_SHOPPING = "shopping_items";
+    public static final String COLUMN_SHOPPING_ID = "shopping_id";
+    public static final String COLUMN_SHOPPING_NAME = "shopping_name";
 
     public PantryDatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -34,12 +38,18 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
                 COLUMN_EXPIRY + " TEXT NOT NULL)";
 
         db.execSQL(createTable);
+        String createShoppingTable = "CREATE TABLE " + TABLE_SHOPPING + " (" +
+                COLUMN_SHOPPING_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_SHOPPING_NAME + " TEXT NOT NULL)";
+
+        db.execSQL(createShoppingTable);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PANTRY);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_SHOPPING);
         onCreate(db);
     }
 
@@ -79,5 +89,26 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
         );
 
         return result > 0;
+    }
+    public boolean addShoppingItem(String itemName) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_SHOPPING_NAME, itemName);
+
+        long result = db.insert(TABLE_SHOPPING, null, values);
+
+        return result != -1;
+    }
+
+    public Cursor getAllShoppingItems() {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        return db.rawQuery(
+                "SELECT * FROM " + TABLE_SHOPPING,
+                null
+        );
     }
 }
