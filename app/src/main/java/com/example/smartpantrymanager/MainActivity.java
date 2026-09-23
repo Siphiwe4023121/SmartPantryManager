@@ -14,9 +14,14 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         Button btnAddItem = findViewById(R.id.btnAddItem);
+        Button btnViewItems = findViewById(R.id.btnViewPantry);
 
         btnAddItem.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, AddItemActivity.class);
+            startActivity(intent);
+        });
+        btnViewItems.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, ViewPantryActivity.class);
             startActivity(intent);
         });
     }

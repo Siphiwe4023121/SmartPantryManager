@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="#FAF9F6">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Pantry"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:textColor="#2E6B3E"
+        android:layout_marginBottom="8dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Items currently stored in your pantry"
+        android:textSize="15sp"
+        android:textColor="#666666"
+        android:layout_marginBottom="24dp" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:id="@+id/pantryItemsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textEmptyPantry"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="No pantry items yet."
+                android:textSize="16sp"
+                android:textColor="#666666"
+                android:gravity="center"
+                android:padding="30dp" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <Button
+        android:id="@+id/btnBack"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#6F4FB3"
+        android:layout_marginTop="16dp" />
+
+</LinearLayout>
