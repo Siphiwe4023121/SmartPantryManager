@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnAddItem = findViewById(R.id.btnAddItem);
         Button btnViewItems = findViewById(R.id.btnViewPantry);
         Button btnShoppingList = findViewById(R.id.btnShoppingList);
+        Button btnCategories = findViewById(R.id.btnCategories);
 
         btnAddItem.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, AddItemActivity.class);
@@ -27,6 +28,10 @@ public class MainActivity extends AppCompatActivity {
         });
         btnShoppingList.setOnClickListener(v -> {
             Intent intent = new Intent(MainActivity.this, ShoppingListActivity.class);
+            startActivity(intent);
+        });
+        btnCategories.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, CategoriesActivity.class);
             startActivity(intent);
         });
     }

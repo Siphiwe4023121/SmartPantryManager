@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Categories"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:textColor="#2E7D32"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="View your pantry items by category"
+        android:textSize="14sp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="25dp" />
+
+    <Button
+        android:id="@+id/btnDairy"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dairy" />
+
+    <Button
+        android:id="@+id/btnMeat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Meat" />
+
+    <Button
+        android:id="@+id/btnFruits"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Fruits" />
+
+    <Button
+        android:id="@+id/btnVegetables"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Vegetables" />
+
+    <Button
+        android:id="@+id/btnGrains"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Grains" />
+
+    <Button
+        android:id="@+id/btnSnacks"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Snacks" />
+
+    <Button
+        android:id="@+id/btnOther"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Other" />
+
+    <LinearLayout
+        android:id="@+id/categoryItemsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="15dp" />
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <Button
+        android:id="@+id/btnBackCategories"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back" />
+
+</LinearLayout>

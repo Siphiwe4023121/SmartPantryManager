@@ -77,7 +77,20 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
                 null
         );
     }
+    public Cursor getPantryItemsByCategory(String category) {
 
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        return db.query(
+                TABLE_PANTRY,
+                null,
+                COLUMN_CATEGORY + " = ?",
+                new String[]{category},
+                null,
+                null,
+                null
+        );
+    }
     public boolean deletePantryItem(int id) {
 
         SQLiteDatabase db = this.getWritableDatabase();
