@@ -111,4 +111,16 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
                 null
         );
     }
+    public boolean deleteShoppingItem(int id) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        int result = db.delete(
+                TABLE_SHOPPING,
+                COLUMN_SHOPPING_ID + " = ?",
+                new String[]{String.valueOf(id)}
+        );
+
+        return result > 0;
+    }
 }

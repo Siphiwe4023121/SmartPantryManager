@@ -35,19 +35,40 @@ public class ShoppingListActivity extends AppCompatActivity {
         Cursor cursor = databaseHelper.getAllShoppingItems();
 
         while (cursor.moveToNext()) {
+            int itemId = cursor.getInt(
+                    cursor.getColumnIndexOrThrow(
+                            PantryDatabaseHelper.COLUMN_SHOPPING_ID
+                    )
+            );
 
             String itemName = cursor.getString(
                     cursor.getColumnIndexOrThrow(
                             PantryDatabaseHelper.COLUMN_SHOPPING_NAME
                     )
             );
+            LinearLayout itemRow = new LinearLayout(ShoppingListActivity.this);
+            itemRow.setOrientation(LinearLayout.HORIZONTAL);
 
             TextView itemView = new TextView(ShoppingListActivity.this);
             itemView.setText("• " + itemName);
             itemView.setTextSize(18);
             itemView.setPadding(10, 15, 10, 15);
 
-            shoppingItemsContainer.addView(itemView);
+            Button deleteButton = new Button(ShoppingListActivity.this);
+            deleteButton.setText("Delete");
+            deleteButton.setOnClickListener(v -> {
+                boolean deleted = databaseHelper.deleteShoppingItem(itemId);
+
+                if (deleted) {
+                    shoppingItemsContainer.removeView(itemRow);
+                }
+            });
+
+            itemRow.addView(itemView);
+            itemRow.addView(deleteButton);
+
+            shoppingItemsContainer.addView(itemRow);
+
         }
 
         cursor.close();
@@ -66,6 +87,7 @@ public class ShoppingListActivity extends AppCompatActivity {
                     itemView.setText("• " + itemName);
                     itemView.setTextSize(18);
                     itemView.setPadding(10, 15, 10, 15);
+
 
                     shoppingItemsContainer.addView(itemView);
 
