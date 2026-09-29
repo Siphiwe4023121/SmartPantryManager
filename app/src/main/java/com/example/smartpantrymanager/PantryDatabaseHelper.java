@@ -90,7 +90,7 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
 
         return result > 0;
     }
-    public boolean addShoppingItem(String itemName) {
+    public long addShoppingItem(String itemName) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -99,7 +99,7 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
 
         long result = db.insert(TABLE_SHOPPING, null, values);
 
-        return result != -1;
+        return result;
     }
 
     public Cursor getAllShoppingItems() {

@@ -78,9 +78,9 @@ public class ShoppingListActivity extends AppCompatActivity {
 
             if (!itemName.isEmpty()) {
 
-                boolean added = databaseHelper.addShoppingItem(itemName);
+                long newItemId = databaseHelper.addShoppingItem(itemName);
 
-                if (added) {
+                if (newItemId != -1) {
 
                     TextView itemView = new TextView(ShoppingListActivity.this);
 
@@ -89,7 +89,23 @@ public class ShoppingListActivity extends AppCompatActivity {
                     itemView.setPadding(10, 15, 10, 15);
 
 
-                    shoppingItemsContainer.addView(itemView);
+                    LinearLayout itemRow = new LinearLayout(ShoppingListActivity.this);
+                    itemRow.setOrientation(LinearLayout.HORIZONTAL);
+
+                    Button deleteButton = new Button(ShoppingListActivity.this);
+                    deleteButton.setText("Delete");
+                    deleteButton.setOnClickListener(view -> {
+                        boolean deleted = databaseHelper.deleteShoppingItem((int) newItemId);
+
+                        if (deleted) {
+                            shoppingItemsContainer.removeView(itemRow);
+                        }
+                    });
+
+                    itemRow.addView(itemView);
+                    itemRow.addView(deleteButton);
+
+                    shoppingItemsContainer.addView(itemRow);
 
                     editShoppingItem.setText("");
                 }
