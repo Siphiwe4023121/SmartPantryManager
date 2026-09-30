@@ -83,7 +83,22 @@ public class AddItemActivity extends AppCompatActivity {
                 return;
             }
 
-            int quantityNumber = Integer.parseInt(quantity);
+            int quantityNumber;
+
+            try {
+                quantityNumber = Integer.parseInt(quantity);
+
+                if (quantityNumber <= 0) {
+                    editQuantity.setError("Quantity must be greater than 0");
+                    editQuantity.requestFocus();
+                    return;
+                }
+
+            } catch (NumberFormatException e) {
+                editQuantity.setError("Please enter a valid quantity");
+                editQuantity.requestFocus();
+                return;
+            }
 
             PantryDatabaseHelper databaseHelper =
                     new PantryDatabaseHelper(AddItemActivity.this);
