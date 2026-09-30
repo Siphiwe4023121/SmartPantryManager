@@ -103,6 +103,27 @@ public class PantryDatabaseHelper extends SQLiteOpenHelper {
 
         return result > 0;
     }
+
+    public boolean updatePantryItem(int id, String name, int quantity,
+                                    String category, String expiryDate) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME, name);
+        values.put(COLUMN_QUANTITY, quantity);
+        values.put(COLUMN_CATEGORY, category);
+        values.put(COLUMN_EXPIRY, expiryDate);
+
+        int result = db.update(
+                TABLE_PANTRY,
+                values,
+                COLUMN_ID + " = ?",
+                new String[]{String.valueOf(id)}
+        );
+
+        return result > 0;
+    }
     public long addShoppingItem(String itemName) {
 
         SQLiteDatabase db = this.getWritableDatabase();

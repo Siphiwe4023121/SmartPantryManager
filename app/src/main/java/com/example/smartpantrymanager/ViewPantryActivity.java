@@ -17,6 +17,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
+import android.app.AlertDialog;
+import android.text.InputType;
+import android.widget.EditText;
+import android.widget.Toast;
 
 public class ViewPantryActivity extends AppCompatActivity {
 
@@ -117,6 +121,75 @@ public class ViewPantryActivity extends AppCompatActivity {
                     }
                 });
 
+                Button editButton = new Button(ViewPantryActivity.this);
+                editButton.setText("Edit");
+
+                editButton.setOnClickListener(view -> {
+
+                    LinearLayout editLayout = new LinearLayout(ViewPantryActivity.this);
+                    editLayout.setOrientation(LinearLayout.VERTICAL);
+                    editLayout.setPadding(40, 20, 40, 20);
+
+                    EditText editName = new EditText(ViewPantryActivity.this);
+                    editName.setHint("Item Name");
+                    editName.setText(name);
+
+                    EditText editQuantity = new EditText(ViewPantryActivity.this);
+                    editQuantity.setHint("Quantity");
+                    editQuantity.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    editQuantity.setText(String.valueOf(quantity));
+
+                    EditText editCategory = new EditText(ViewPantryActivity.this);
+                    editCategory.setHint("Category");
+                    editCategory.setText(category);
+
+                    EditText editExpiry = new EditText(ViewPantryActivity.this);
+                    editExpiry.setHint("Expiry Date (dd/MM/yyyy)");
+                    editExpiry.setText(expiryDate);
+
+                    editLayout.addView(editName);
+                    editLayout.addView(editQuantity);
+                    editLayout.addView(editCategory);
+                    editLayout.addView(editExpiry);
+
+                    new AlertDialog.Builder(ViewPantryActivity.this)
+                            .setTitle("Edit Pantry Item")
+                            .setView(editLayout)
+                            .setPositiveButton("Save", (dialog, which) -> {
+
+                                String newName = editName.getText().toString().trim();
+                                String quantityText = editQuantity.getText().toString().trim();
+                                String newCategory = editCategory.getText().toString().trim();
+                                String newExpiry = editExpiry.getText().toString().trim();
+
+                                if (!newName.isEmpty() && !quantityText.isEmpty()
+                                        && !newCategory.isEmpty() && !newExpiry.isEmpty()) {
+
+                                    int newQuantity = Integer.parseInt(quantityText);
+
+                                    boolean updated = databaseHelper.updatePantryItem(
+                                            id,
+                                            newName,
+                                            newQuantity,
+                                            newCategory,
+                                            newExpiry
+                                    );
+
+                                    if (updated) {
+                                        Toast.makeText(
+                                                ViewPantryActivity.this,
+                                                "Item updated successfully",
+                                                Toast.LENGTH_SHORT
+                                        ).show();
+
+                                        recreate();
+                                    }
+                                }
+                            })
+                            .setNegativeButton("Cancel", null)
+                            .show();
+                });
+
                 Button deleteButton = new Button(ViewPantryActivity.this);
                 deleteButton.setText("Delete");
 
@@ -136,6 +209,7 @@ public class ViewPantryActivity extends AppCompatActivity {
                 if (quantity <= 2) {
                     pantryItemsContainer.addView(shoppingButton);
                 }
+                pantryItemsContainer.addView(editButton);
                 pantryItemsContainer.addView(deleteButton);
             }
 
