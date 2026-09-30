@@ -105,22 +105,37 @@ public class ViewPantryActivity extends AppCompatActivity {
                 itemView.setTextSize(18);
                 itemView.setPadding(20, 20, 20, 30);
 
-                pantryItemsContainer.addView(itemView);
+                Button shoppingButton = new Button(ViewPantryActivity.this);
+                shoppingButton.setText("Add to Shopping List");
+
+                shoppingButton.setOnClickListener(view -> {
+                    long result = databaseHelper.addShoppingItem(name);
+
+                    if (result != -1) {
+                        shoppingButton.setText("Added to Shopping List");
+                        shoppingButton.setEnabled(false);
+                    }
+                });
 
                 Button deleteButton = new Button(ViewPantryActivity.this);
                 deleteButton.setText("Delete");
 
-                deleteButton.setOnClickListener(v -> {
+                deleteButton.setOnClickListener(view -> {
 
                     boolean deleted = databaseHelper.deletePantryItem(id);
 
                     if (deleted) {
                         pantryItemsContainer.removeView(itemView);
+                        pantryItemsContainer.removeView(shoppingButton);
                         pantryItemsContainer.removeView(deleteButton);
                     }
-
                 });
 
+                pantryItemsContainer.addView(itemView);
+
+                if (quantity <= 2) {
+                    pantryItemsContainer.addView(shoppingButton);
+                }
                 pantryItemsContainer.addView(deleteButton);
             }
 
