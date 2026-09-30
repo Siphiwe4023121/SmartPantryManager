@@ -75,6 +75,12 @@ public class ViewPantryActivity extends AppCompatActivity {
 
                 TextView itemView = new TextView(ViewPantryActivity.this);
 
+                String stockStatus = "";
+
+                if (quantity <= 2) {
+                    stockStatus = "\n⚠ Low Stock";
+                }
+
                 String expiryStatus = "";
 
                 if (daysUntilExpiry < 0) {
@@ -92,6 +98,7 @@ public class ViewPantryActivity extends AppCompatActivity {
                                 "\nQuantity: " + quantity +
                                 "\nCategory: " + category +
                                 "\nExpiry Date: " + expiryDate +
+                                stockStatus +
                                 expiryStatus
                 );
 
