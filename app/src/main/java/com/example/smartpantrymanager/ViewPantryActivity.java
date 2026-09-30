@@ -165,7 +165,44 @@ public class ViewPantryActivity extends AppCompatActivity {
                                 if (!newName.isEmpty() && !quantityText.isEmpty()
                                         && !newCategory.isEmpty() && !newExpiry.isEmpty()) {
 
-                                    int newQuantity = Integer.parseInt(quantityText);
+                                    int newQuantity;
+
+                                    try {
+                                        newQuantity = Integer.parseInt(quantityText);
+
+                                        if (newQuantity <= 0) {
+                                            Toast.makeText(
+                                                    ViewPantryActivity.this,
+                                                    "Quantity must be greater than 0",
+                                                    Toast.LENGTH_SHORT
+                                            ).show();
+                                            return;
+                                        }
+
+                                    } catch (NumberFormatException e) {
+                                        Toast.makeText(
+                                                ViewPantryActivity.this,
+                                                "Please enter a valid quantity",
+                                                Toast.LENGTH_SHORT
+                                        ).show();
+                                        return;
+                                    }
+
+                                    SimpleDateFormat validationFormat =
+                                            new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+                                    validationFormat.setLenient(false);
+
+                                    try {
+                                        validationFormat.parse(newExpiry);
+                                    } catch (ParseException e) {
+                                        Toast.makeText(
+                                                ViewPantryActivity.this,
+                                                "Please enter a valid date (dd/MM/yyyy)",
+                                                Toast.LENGTH_SHORT
+                                        ).show();
+                                        return;
+                                    }
 
                                     boolean updated = databaseHelper.updatePantryItem(
                                             id,
