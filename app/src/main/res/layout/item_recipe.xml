@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:layout_marginBottom="12dp"
+    android:background="#FFFFFF"
+    android:elevation="2dp">
+
+    <TextView
+        android:id="@+id/textRecipeName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Recipe Name"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#2E5D3B" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="6dp">
+
+        <TextView
+            android:id="@+id/textRecipeCategory"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Breakfast"
+            android:textSize="14sp"
+            android:textColor="#555555"
+            android:background="#E8F5E9"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:layout_marginEnd="10dp" />
+
+        <TextView
+            android:id="@+id/textIngredientCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5 Ingredients"
+            android:textSize="14sp"
+            android:textColor="#666666" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnViewRecipe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="View Recipe Details"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="#2E5D3B"
+        android:layout_marginTop="12dp" />
+
+</LinearLayout>

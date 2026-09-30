@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,8 +11,8 @@
         android:orientation="vertical"
         android:padding="24dp">
 
-        <!-- Page title -->
         <TextView
+            android:id="@+id/textTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add Pantry Item"
@@ -24,7 +23,6 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="8dp" />
 
-        <!-- Subtitle -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -32,9 +30,8 @@
             android:textColor="#666666"
             android:textSize="15sp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="30dp" />
+            android:layout_marginBottom="24dp" />
 
-        <!-- Item name -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,26 +46,62 @@
             android:layout_height="wrap_content"
             android:hint="e.g. Milk"
             android:inputType="textCapWords"
+            android:padding="12dp"
             android:layout_marginBottom="16dp" />
 
-        <!-- Quantity -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Quantity"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:textColor="#222222" />
-
-        <EditText
-            android:id="@+id/editQuantity"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="e.g. 2"
-            android:inputType="number"
-            android:layout_marginBottom="16dp" />
+            android:orientation="horizontal"
+            android:layout_marginBottom="16dp">
 
-        <!-- Category -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginEnd="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Quantity"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="#222222" />
+
+                <EditText
+                    android:id="@+id/editQuantity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="e.g. 2"
+                    android:inputType="numberDecimal"
+                    android:padding="12dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:layout_marginStart="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Unit"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:textColor="#222222" />
+
+                <Spinner
+                    android:id="@+id/spinnerUnit"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="4dp" />
+            </LinearLayout>
+        </LinearLayout>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -83,13 +116,13 @@
             android:layout_height="wrap_content"
             android:hint="e.g. Dairy"
             android:inputType="textCapWords"
+            android:padding="12dp"
             android:layout_marginBottom="16dp" />
 
-        <!-- Expiry date -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Expiry Date"
+            android:text="Expiry Date (Optional)"
             android:textStyle="bold"
             android:textSize="16sp"
             android:textColor="#222222" />
@@ -98,12 +131,12 @@
             android:id="@+id/editExpiryDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="DD/MM/YYYY"
+            android:hint="DD/MM/YYYY (Optional)"
             android:focusable="false"
             android:clickable="true"
+            android:padding="12dp"
             android:layout_marginBottom="30dp" />
 
-        <!-- Save button -->
         <Button
             android:id="@+id/btnSaveItem"
             android:layout_width="match_parent"
@@ -113,7 +146,6 @@
             android:backgroundTint="#6F4FB3"
             android:layout_marginBottom="12dp" />
 
-        <!-- Cancel button -->
         <Button
             android:id="@+id/btnCancel"
             android:layout_width="match_parent"

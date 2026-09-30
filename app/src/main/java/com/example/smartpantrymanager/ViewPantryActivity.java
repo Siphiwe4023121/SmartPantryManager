@@ -22,86 +22,52 @@ public class ViewPantryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_pantry);
 
-        // Connect RecyclerView
-        recyclerViewPantry =
-                findViewById(R.id.recyclerViewPantry);
+        recyclerViewPantry = findViewById(R.id.recyclerViewPantry);
+        recyclerViewPantry.setLayoutManager(new LinearLayoutManager(this));
 
-        recyclerViewPantry.setLayoutManager(
-                new LinearLayoutManager(this)
-        );
-
-        // Create the list
         pantryItems = new ArrayList<>();
+        databaseHelper = new PantryDatabaseHelper(this);
 
-        // Connect to database
-        databaseHelper =
-                new PantryDatabaseHelper(this);
-
-        // Load pantry items
-        loadPantryItems();
-
-        // Connect list to RecyclerView
-        pantryAdapter =
-                new PantryAdapter(pantryItems);
-
+        pantryAdapter = new PantryAdapter(pantryItems);
         recyclerViewPantry.setAdapter(pantryAdapter);
 
-        // Back button
         Button btnBack = findViewById(R.id.btnBack);
-
         btnBack.setOnClickListener(v -> finish());
     }
 
-    private void loadPantryItems() {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadPantryItems();
+    }
 
+    private void loadPantryItems() {
         pantryItems.clear();
 
-        Cursor cursor =
-                databaseHelper.getAllPantryItems();
+        try (Cursor cursor = databaseHelper.getAllPantryItems()) {
+            while (cursor.moveToNext()) {
+                int id = cursor.getInt(cursor.getColumnIndexOrThrow(PantryDatabaseHelper.COLUMN_ID));
+                String name = cursor.getString(cursor.getColumnIndexOrThrow(PantryDatabaseHelper.COLUMN_NAME));
+                double quantity = cursor.getDouble(cursor.getColumnIndexOrThrow(PantryDatabaseHelper.COLUMN_QUANTITY));
 
-        while (cursor.moveToNext()) {
+                String unit = "pcs";
+                int unitIdx = cursor.getColumnIndex(PantryDatabaseHelper.COLUMN_UNIT);
+                if (unitIdx != -1) {
+                    unit = cursor.getString(unitIdx);
+                }
 
-            int id = cursor.getInt(
-                    cursor.getColumnIndexOrThrow(
-                            PantryDatabaseHelper.COLUMN_ID
-                    )
-            );
+                String category = cursor.getString(cursor.getColumnIndexOrThrow(PantryDatabaseHelper.COLUMN_CATEGORY));
+                String expiryDate = cursor.getString(cursor.getColumnIndexOrThrow(PantryDatabaseHelper.COLUMN_EXPIRY));
 
-            String name = cursor.getString(
-                    cursor.getColumnIndexOrThrow(
-                            PantryDatabaseHelper.COLUMN_NAME
-                    )
-            );
-
-            int quantity = cursor.getInt(
-                    cursor.getColumnIndexOrThrow(
-                            PantryDatabaseHelper.COLUMN_QUANTITY
-                    )
-            );
-
-            String category = cursor.getString(
-                    cursor.getColumnIndexOrThrow(
-                            PantryDatabaseHelper.COLUMN_CATEGORY
-                    )
-            );
-
-            String expiryDate = cursor.getString(
-                    cursor.getColumnIndexOrThrow(
-                            PantryDatabaseHelper.COLUMN_EXPIRY
-                    )
-            );
-
-            PantryItem item = new PantryItem(
-                    id,
-                    name,
-                    quantity,
-                    category,
-                    expiryDate
-            );
-
-            pantryItems.add(item);
+                PantryItem item = new PantryItem(id, name, quantity, unit, category, expiryDate);
+                pantryItems.add(item);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        cursor.close();
+        if (pantryAdapter != null) {
+            pantryAdapter.notifyDataSetChanged();
+        }
     }
 }

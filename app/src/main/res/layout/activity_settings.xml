@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FAF9F6"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Settings"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:textColor="#2E5D3B"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="6dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Customize alerts and measurement preferences"
+            android:textSize="15sp"
+            android:textColor="#666666"
+            android:layout_marginBottom="24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Expiring-Soon Alert Threshold"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#222222"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Alert me when pantry items will expire within:"
+            android:textSize="14sp"
+            android:textColor="#555555"
+            android:layout_marginBottom="12dp" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupExpiryThreshold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:padding="12dp"
+            android:layout_marginBottom="24dp"
+            android:elevation="2dp">
+
+            <RadioButton
+                android:id="@+id/radio3Days"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="3 Days"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/radio7Days"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="7 Days (Default)"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/radio14Days"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="14 Days"
+                android:textSize="16sp" />
+        </RadioGroup>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Preferred Measurement System"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="#222222"
+            android:layout_marginBottom="8dp" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupUnits"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:padding="12dp"
+            android:layout_marginBottom="30dp"
+            android:elevation="2dp">
+
+            <RadioButton
+                android:id="@+id/radioMetric"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Metric (g, kg, ml, l)"
+                android:textSize="16sp" />
+
+            <RadioButton
+                android:id="@+id/radioImperial"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Imperial (oz, lb, fl oz)"
+                android:textSize="16sp" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btnSaveSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save Settings"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#2E5D3B"
+            android:layout_marginBottom="12dp" />
+
+        <Button
+            android:id="@+id/btnBackSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:textColor="#FFFFFF"
+            android:backgroundTint="#777777" />
+
+    </LinearLayout>
+
+</ScrollView>
