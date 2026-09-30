@@ -12,6 +12,11 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 public class ViewPantryActivity extends AppCompatActivity {
 
@@ -51,17 +56,46 @@ public class ViewPantryActivity extends AppCompatActivity {
                 String expiryDate = cursor.getString(
                         cursor.getColumnIndexOrThrow(PantryDatabaseHelper.COLUMN_EXPIRY));
 
+                SimpleDateFormat dateFormat =
+                        new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+
+                long daysUntilExpiry = 999;
+
+                try {
+                    Date expiry = dateFormat.parse(expiryDate);
+                    Date today = new Date();
+
+                    if (expiry != null) {
+                        long difference = expiry.getTime() - today.getTime();
+                        daysUntilExpiry = TimeUnit.MILLISECONDS.toDays(difference);
+                    }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
                 TextView itemView = new TextView(ViewPantryActivity.this);
+
+                String expiryStatus = "";
+
+                if (daysUntilExpiry < 0) {
+                    expiryStatus = "\n⚠ EXPIRED";
+                    itemView.setTextColor(Color.RED);
+                } else if (daysUntilExpiry <= 7) {
+                    expiryStatus = "\n⚠ Expiring Soon (" + daysUntilExpiry + " days left)";
+                    itemView.setTextColor(Color.rgb(255, 140, 0));
+                } else {
+                    itemView.setTextColor(Color.BLACK);
+                }
 
                 itemView.setText(
                         name +
                                 "\nQuantity: " + quantity +
                                 "\nCategory: " + category +
-                                "\nExpiry Date: " + expiryDate
+                                "\nExpiry Date: " + expiryDate +
+                                expiryStatus
                 );
 
                 itemView.setTextSize(18);
-                itemView.setTextColor(Color.BLACK);
                 itemView.setPadding(20, 20, 20, 30);
 
                 pantryItemsContainer.addView(itemView);
